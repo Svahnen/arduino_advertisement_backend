@@ -7,10 +7,12 @@ static int addAd() {
     int sum;
     string adText;
 
-    cout << "Enter sum :";
+    cout << "Enter sum: ";
     cin >> sum;
     cout << "Enter text: ";
     cin >> adText;
+
+    setAd(sum, adText);
 
     cout << "You have added an ad" << endl;
     return 0;
@@ -60,13 +62,6 @@ int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
         cout << argv[i] << endl;
     }
-    
-    Advertisments Arduino;
-    Arduino.setAd(500, "Sell your car today!");
-
-    cout << "Sum: " << Arduino.getadSum() << endl;
-    cout << "Text: " << Arduino.getAdtext() << endl;
-
 
     while (1) {
         showMenu();

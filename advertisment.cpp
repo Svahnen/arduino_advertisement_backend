@@ -3,17 +3,39 @@
 
 using namespace std;
 
-int Advertisments::setAd(int sum, string text)
-{
-    this->adSum = sum;
-    this->adText = text;
+Advertisments ad;
+Advertisments adArray[10];
 
+int setAd(int sum, string text) {
+    //ad.adSum = sum;
+    //ad.adText = text;
+
+    int len = sizeof(adArray)/sizeof(adArray[0]);
+
+    cout << endl;
+    cout << "Array is " << len << " numbers" << endl;
+    cout << "Array length is " << len << endl;
+    cout << endl;
+
+    for (int i = 0; i < sizeof(adArray)/sizeof(adArray[0]); i++) {
+        if (adArray[i].adSum == 0) {
+            adArray[i].adSum = sum;
+            adArray[i].adText = text;
+
+            cout << "Array " << i << " = " << adArray[i].adSum << endl;
+            cout << "Array " << i << " = " << adArray[i].adText << endl;
+            cout << endl;
+
+            return 0;
+        }
+    }
+    
     return 0;
 }
-string Advertisments::getAdtext() {
-    return this->adText;
+string getAdtext() {
+    return ad.adText;
 }
 
-int Advertisments::getadSum() {
-    return this->adSum;
+int getadSum() {
+    return ad.adSum;
 }
