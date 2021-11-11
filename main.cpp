@@ -1,8 +1,17 @@
 #include <iostream>
+#include "advertisment.hpp"
 
 using namespace std;
 
 static int addAd() {
+    int sum;
+    string adText;
+
+    cout << "Enter sum :";
+    cin >> sum;
+    cout << "Enter text: ";
+    cin >> adText;
+
     cout << "You have added an ad" << endl;
     return 0;
 }
@@ -52,6 +61,18 @@ int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
         cout << argv[i] << endl;
     }
+    
+    Advertisments Arduino1;
+    Advertisments Arduino2;
+    Arduino1.setAd(500, "Sell your car today!");
+    Arduino2.setAd(250, "Buy 2 cars for 500$");
+
+    cout << "Sum: " << Arduino1.getadSum() << endl;
+    cout << "Text: " << Arduino1.getAdtext() << endl;
+
+    cout << "Sum: " << Arduino2.getadSum() << endl;
+    cout << "Text: " << Arduino2.getAdtext() << endl;
+
 
     while (1) {
         showMenu();
