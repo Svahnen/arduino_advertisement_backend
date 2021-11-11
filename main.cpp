@@ -9,14 +9,27 @@
 using namespace std;
 
 static int addAd() {
-    int sum;
+    int sum, numbersOfArray;
     string adText;
+    numbersOfArray = getNumberOfAdvertisments();
 
+    if (numbersOfArray > MAX_NUMBER_OF_ADVERTISMENT) {
+        cout << "Max number of advertisments have been added!" << endl;
+        return -1;
+    }
+    
+    cout << "You have " << MAX_NUMBER_OF_ADVERTISMENT - numbersOfArray << " free slots of advertisment to add" << endl;
+    cout << "Enter sum between " << MIN_ADVERTISMENT_COST << " - " << MAX_ADVERTISMENT_COST << " and max number of characters is " << MAX_NUMBER_OF_ADCHARS << endl; 
     cout << "Enter sum: ";
     cin >> sum;
     cout << "Enter text: ";
     cin >> adText;
 
+    if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST || adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 0) {
+        cout << "Please enter correct input!" << endl;
+        return -1;
+    }
+    
     setAd(sum, adText);
 
     cout << "You have added an ad" << endl;
@@ -46,7 +59,7 @@ static int deleteAd() {
     return 0;
 }
 
-int printToFile() {
+static int printToFile() {
     string ad;
     ad = getAdtextByNumber(0);
     if (ad == "") {
