@@ -52,7 +52,6 @@ static int showMenu() {
         cout << "Please enter a correct choice!" << endl;
         break;
     }
-
     return 0;
 }
 
@@ -62,16 +61,11 @@ int main(int argc, char** argv) {
         cout << argv[i] << endl;
     }
     
-    Advertisments Arduino1;
-    Advertisments Arduino2;
-    Arduino1.setAd(500, "Sell your car today!");
-    Arduino2.setAd(250, "Buy 2 cars for 500$");
+    Advertisments Arduino;
+    Arduino.setAd(500, "Sell your car today!");
 
-    cout << "Sum: " << Arduino1.getadSum() << endl;
-    cout << "Text: " << Arduino1.getAdtext() << endl;
-
-    cout << "Sum: " << Arduino2.getadSum() << endl;
-    cout << "Text: " << Arduino2.getAdtext() << endl;
+    cout << "Sum: " << Arduino.getadSum() << endl;
+    cout << "Text: " << Arduino.getAdtext() << endl;
 
 
     while (1) {

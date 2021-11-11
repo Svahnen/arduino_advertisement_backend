@@ -8,7 +8,6 @@
 #define MAX_ADVERTISMENT_COST 10000
 #define MIN_ADVERTISMENT_COST 1000
 
-
 class Advertisments {
 private:
     int adSum;
