@@ -19,7 +19,20 @@ static int addAd() {
 }
 
 static int viewAd() {
-    cout << "You have viewed an ad" << endl;
+    int numbersOfArray, i;
+    string ad;
+    numbersOfArray = getNumberOfAdvertisments();
+    cout << endl;
+    cout << "Number of arrays: " << numbersOfArray << endl;
+
+    for (i = 0; i < numbersOfArray; i++) {
+        ad = getAdtextByNumber(i);
+        cout << "Array " << i << ": " << ad << endl;
+    }
+    cout << endl;
+    
+    cout << "You have viewed all ads" << endl;
+    cout << endl;
     return 0;
 }
 

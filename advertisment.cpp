@@ -32,8 +32,20 @@ int setAd(int sum, string text) {
     
     return 0;
 }
-string getAdtext() {
-    return ad.adText;
+
+string getAdtextByNumber(int x) {
+    return adArray[x].adText;
+}
+
+int getNumberOfAdvertisments() {
+    int numberOfAdvertisments = 0;
+    for (int i = 0; i < sizeof(adArray)/sizeof(adArray[0]) ; i++) {
+        if (adArray[i].adSum != 0) {
+            numberOfAdvertisments ++;
+        }
+    }
+    
+    return numberOfAdvertisments;
 }
 
 int getadSum() {

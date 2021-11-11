@@ -14,7 +14,8 @@ typedef struct {
 } Advertisments;
 
 int setAd(int sum, std::string text);
-std::string getAdtext();
+std::string getAdtextByNumber(int x);
 int getadSum();
+int getNumberOfAdvertisments();
 
 #endif /* ifndef ADVERTISMENT_HPP */
