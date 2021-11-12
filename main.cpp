@@ -70,7 +70,8 @@ static int removeAd() {
 static int printToFile() {
     string ads[10];
     string ad;
-    int numbersOfAds, i;
+    int numbersOfAds, i, totalSum;
+    double adSum[10], totalSec[10];
     numbersOfAds = 0;
 
     // Check if this work if you remove one ad and adds a new on another index. 
@@ -78,12 +79,10 @@ static int printToFile() {
         ad = getAdtextByNumber(i);
         if (ad != "") {
             ads[numbersOfAds] = ad;
-            cout << "Ad: " << numbersOfAds << " = " << ads[numbersOfAds] << endl;
+            adSum[numbersOfAds] = getadSumByNumber(numbersOfAds);
             numbersOfAds++;
         }
     }
-
-    cout << "1";
 
     if (numbersOfAds <= 0) {
         cout << endl;
@@ -92,7 +91,12 @@ static int printToFile() {
         return -1;
     }
 
-    cout << "2";
+    totalSum = getTotalAdSum();
+
+    for (int j = 0; j < numbersOfAds; j++) {
+        totalSec[j] = ((adSum[j] / totalSum) * 60);
+        cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
+    }
     
     int key = 0;
     int numberOfPrints = 0;
@@ -100,19 +104,19 @@ static int printToFile() {
     ofstream myfile;
     myfile.open ("example.txt");
 
-    cout << "3";
-
     cout << "Press space to exit the loop" << endl;
 
     while (key != 32) {
-        myfile << ads[0] << endl;
-        numberOfPrints ++;
+        for (int x = 0; x < numbersOfAds; x++) {
+            myfile << ads[x] << " sec: " << totalSec[x] << endl;
+            numberOfPrints ++;
 
-        sleep(1);
+            sleep(totalSec[x]);
 
-        if(_kbhit()) {
-            key = _getch();
-            cout << "Number of prints = " << numberOfPrints << endl;
+            if(_kbhit()) {
+                key = _getch();
+                cout << "Number of prints = " << numberOfPrints << endl;
+            }
         }
     }
 

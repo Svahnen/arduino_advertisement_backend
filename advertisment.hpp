@@ -15,8 +15,9 @@ typedef struct {
 
 int setAd(int sum, std::string text);
 std::string getAdtextByNumber(int x);
-int getadSum();
+int getadSumByNumber(int x);
 int getNumberOfAdvertisments();
 int deleteAd(int numberOfAd);
+int getTotalAdSum();
 
 #endif /* ifndef ADVERTISMENT_HPP */

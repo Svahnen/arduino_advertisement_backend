@@ -52,6 +52,14 @@ int getNumberOfAdvertisments() {
     return numberOfAdvertisments;
 }
 
-int getadSum() {
-    return ad.adSum;
+int getadSumByNumber(int x) {
+    return adArray[x].adSum;
+}
+
+int getTotalAdSum() {
+    int totalSum = 0;
+    for (int i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++) {
+        totalSum += adArray[i].adSum;
+    }
+    return totalSum;
 }
