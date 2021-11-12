@@ -7,9 +7,6 @@ Advertisments ad;
 Advertisments adArray[10];
 
 int setAd(int sum, string text) {
-    //ad.adSum = sum;
-    //ad.adText = text;
-
     int len = sizeof(adArray)/sizeof(adArray[0]);
 
     cout << endl;
@@ -30,6 +27,13 @@ int setAd(int sum, string text) {
         }
     }
     
+    return 0;
+}
+
+int deleteAd(int numberOfAd) {
+    adArray[numberOfAd].adSum = 0;
+    adArray[numberOfAd].adText = "";
+
     return 0;
 }
 

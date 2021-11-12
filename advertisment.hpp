@@ -17,5 +17,6 @@ int setAd(int sum, std::string text);
 std::string getAdtextByNumber(int x);
 int getadSum();
 int getNumberOfAdvertisments();
+int deleteAd(int numberOfAd);
 
 #endif /* ifndef ADVERTISMENT_HPP */

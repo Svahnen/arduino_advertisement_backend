@@ -23,7 +23,8 @@ static int addAd() {
     cout << "Enter sum: ";
     cin >> sum;
     cout << "Enter text: ";
-    cin >> adText;
+    cin.ignore();
+    getline(cin, adText, '\n');
 
     if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST || adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 0) {
         cout << "Please enter correct input!" << endl;
@@ -37,37 +38,61 @@ static int addAd() {
 }
 
 static int viewAd() {
-    int numbersOfArray, i;
+    int numbersOfArray, i, j;
     string ad;
     numbersOfArray = getNumberOfAdvertisments();
     cout << endl;
     cout << "Number of arrays: " << numbersOfArray << endl;
-
-    for (i = 0; i < numbersOfArray; i++) {
-        ad = getAdtextByNumber(i);
-        cout << "Array " << i << ": " << ad << endl;
-    }
-    cout << endl;
     
-    cout << "You have viewed all ads" << endl;
+    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++) {
+        ad = getAdtextByNumber(i);
+        if (ad != "") {
+            cout << "Array " << i << ": " << ad << endl;
+        }
+    }
     cout << endl;
     return 0;
 }
 
-static int deleteAd() {
+static int removeAd() {
+    int input;
+    viewAd();
+    cout << "Enter which ad you want to remove by enter array number: ";
+    cin >> input;
+    // Check that the input is correct
+
+    deleteAd(input);
     cout << "You have deleted an ad" << endl;
+    cout << endl;
     return 0;
 }
 
 static int printToFile() {
+    string ads[10];
     string ad;
-    ad = getAdtextByNumber(0);
-    if (ad == "") {
+    int numbersOfAds, i;
+    numbersOfAds = 0;
+
+    // Check if this work if you remove one ad and adds a new on another index. 
+    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++) {
+        ad = getAdtextByNumber(i);
+        if (ad != "") {
+            ads[numbersOfAds] = ad;
+            cout << "Ad: " << numbersOfAds << " = " << ads[numbersOfAds] << endl;
+            numbersOfAds++;
+        }
+    }
+
+    cout << "1";
+
+    if (numbersOfAds <= 0) {
         cout << endl;
         cout << "There is no ad to be displayed" << endl;
         cout << endl;
         return -1;
     }
+
+    cout << "2";
     
     int key = 0;
     int numberOfPrints = 0;
@@ -75,10 +100,12 @@ static int printToFile() {
     ofstream myfile;
     myfile.open ("example.txt");
 
+    cout << "3";
+
     cout << "Press space to exit the loop" << endl;
 
     while (key != 32) {
-        myfile << ad << endl;
+        myfile << ads[0] << endl;
         numberOfPrints ++;
 
         sleep(1);
@@ -112,7 +139,7 @@ static int showMenu() {
         viewAd();
         break;
     case 3:
-        deleteAd();
+        removeAd();
         break;
     case 4:
         printToFile();
