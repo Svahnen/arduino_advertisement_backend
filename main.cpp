@@ -1,52 +1,56 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include <conio.h>
-#include <dos.h>
 #include <unistd.h>
 #include "advertisment.hpp"
 
 using namespace std;
 
-static int addAd() {
+static int addAd()
+{
     int sum, numbersOfArray;
     string adText;
     numbersOfArray = getNumberOfAdvertisments();
 
-    if (numbersOfArray > MAX_NUMBER_OF_ADVERTISMENT) {
+    if (numbersOfArray > MAX_NUMBER_OF_ADVERTISMENT)
+    {
         cout << "Max number of advertisments have been added!" << endl;
         return -1;
     }
-    
+
     cout << "You have " << MAX_NUMBER_OF_ADVERTISMENT - numbersOfArray << " free slots of advertisment to add" << endl;
-    cout << "Enter sum between " << MIN_ADVERTISMENT_COST << " - " << MAX_ADVERTISMENT_COST << " and max number of characters is " << MAX_NUMBER_OF_ADCHARS << endl; 
+    cout << "Enter sum between " << MIN_ADVERTISMENT_COST << " - " << MAX_ADVERTISMENT_COST << " and max number of characters is " << MAX_NUMBER_OF_ADCHARS << endl;
     cout << "Enter sum: ";
     cin >> sum;
     cout << "Enter text: ";
     cin.ignore();
     getline(cin, adText, '\n');
 
-    if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST || adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 0) {
+    if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST || adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 0)
+    {
         cout << "Please enter correct input!" << endl;
         return -1;
     }
-    
+
     setAd(sum, adText);
 
     cout << "You have added an ad" << endl;
     return 0;
 }
 
-static int viewAd() {
+static int viewAd()
+{
     int numbersOfArray, i, j;
     string ad;
     numbersOfArray = getNumberOfAdvertisments();
     cout << endl;
     cout << "Number of arrays: " << numbersOfArray << endl;
-    
-    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++) {
+
+    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++)
+    {
         ad = getAdtextByNumber(i);
-        if (ad != "") {
+        if (ad != "")
+        {
             cout << "Array " << i << ": " << ad << endl;
         }
     }
@@ -54,7 +58,8 @@ static int viewAd() {
     return 0;
 }
 
-static int removeAd() {
+static int removeAd()
+{
     int input;
     viewAd();
     cout << "Enter which ad you want to remove by enter array number: ";
@@ -67,24 +72,28 @@ static int removeAd() {
     return 0;
 }
 
-static int printToFile() {
+static int printToFile()
+{
     string ads[10];
     string ad;
     int numbersOfAds, i, totalSum;
     double adSum[10], totalSec[10];
     numbersOfAds = 0;
 
-    // Check if this work if you remove one ad and adds a new on another index. 
-    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++) {
+    // Check if this work if you remove one ad and adds a new on another index.
+    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++)
+    {
         ad = getAdtextByNumber(i);
-        if (ad != "") {
+        if (ad != "")
+        {
             ads[numbersOfAds] = ad;
             adSum[numbersOfAds] = getadSumByNumber(numbersOfAds);
             numbersOfAds++;
         }
     }
 
-    if (numbersOfAds <= 0) {
+    if (numbersOfAds <= 0)
+    {
         cout << endl;
         cout << "There is no ad to be displayed" << endl;
         cout << endl;
@@ -93,29 +102,34 @@ static int printToFile() {
 
     totalSum = getTotalAdSum();
 
-    for (int j = 0; j < numbersOfAds; j++) {
-        totalSec[j] = ((adSum[j] / totalSum) * 60);
+    for (int j = 0; j < numbersOfAds; j++)
+    {
+        totalSec[j] = ((adSum[j] / totalSum) * 10);
         cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
     }
-    
+
     int key = 0;
     int numberOfPrints = 0;
 
     ofstream myfile;
-    myfile.open ("example.txt");
+    myfile.open("example.txt");
 
-    cout << "Press space to exit the loop" << endl;
+    cout << "Press enter to exit the loop" << endl;
 
-    while (key != 32) {
-        for (int x = 0; x < numbersOfAds; x++) {
+    while (key != 10)
+    {
+        for (int x = 0; x < numbersOfAds; x++)
+        {
             myfile << ads[x] << " sec: " << totalSec[x] << endl;
-            numberOfPrints ++;
+            numberOfPrints++;
 
-            sleep(totalSec[x]);
+            //sleep(totalSec[x]);
+            sleep(1);
 
-            if(_kbhit()) {
-                key = _getch();
-                cout << "Number of prints = " << numberOfPrints << endl;
+            getc(stdin);
+            if (getchar())
+            {
+                cout << "keypress: " << key << endl;
             }
         }
     }
@@ -125,7 +139,8 @@ static int printToFile() {
     return 0;
 }
 
-static int showMenu() {
+static int showMenu()
+{
     int choice;
     cout << "1. Add advertisment" << endl;
     cout << "2. View advertisment" << endl;
@@ -135,7 +150,8 @@ static int showMenu() {
     cout << "Enter menu choice: ";
     cin >> choice;
 
-    switch (choice) {
+    switch (choice)
+    {
     case 1:
         addAd();
         break;
@@ -158,13 +174,16 @@ static int showMenu() {
     return 0;
 }
 
-int main(int argc, char** argv) {
-    cout << "Have " << argc -1 << " arguments:" << endl;
-    for (int i = 1; i < argc; ++i) {
+int main(int argc, char **argv)
+{
+    cout << "Have " << argc - 1 << " arguments:" << endl;
+    for (int i = 1; i < argc; ++i)
+    {
         cout << argv[i] << endl;
     }
 
-    while (1) {
+    while (1)
+    {
         showMenu();
     }
 

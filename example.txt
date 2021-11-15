@@ -1,4 +1,9 @@
-hejhopp sec: 5
-nejnej och nej sec: 5
-hejhopp sec: 5
-nejnej och nej sec: 5
+hej sec: 5
+hello sec: 5
+hej sec: 5
+hello sec: 5
+hej sec: 5
+hello sec: 5
+hej sec: 5
+hello sec: 5
+hej sec: 5
