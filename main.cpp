@@ -128,6 +128,59 @@ static int printToFile()
     return 0;
 }
 
+static int printToSerial()
+{
+    string ads[10];
+    string ad;
+    int numbersOfAds, i, totalSum;
+    double adSum[10], totalSec[10];
+    numbersOfAds = 0;
+
+    for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++)
+    {
+        ad = getAdtextByNumber(i);
+        if (ad != "")
+        {
+            ads[numbersOfAds] = ad;
+            adSum[numbersOfAds] = getadSumByNumber(numbersOfAds);
+            numbersOfAds++;
+        }
+    }
+
+    if (numbersOfAds <= 0)
+    {
+        cout << endl;
+        cout << "There is no ad to be displayed" << endl;
+        cout << endl;
+        return -1;
+    }
+
+    totalSum = getTotalAdSum();
+
+    for (int j = 0; j < numbersOfAds; j++)
+    {
+        totalSec[j] = ((adSum[j] / totalSum) * 10); //Seconds to display all messages
+        cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
+    }
+
+    int key = 0;
+
+    ofstream myfile;
+    myfile.open("/dev/cu.usbmodem11301"); //Serial port
+    sleep(3);
+
+    while (1)
+    {
+        for (int x = 0; x < numbersOfAds; x++)
+        {
+            myfile << ads[x] << endl;
+            myfile.close();
+            sleep(totalSec[x]);
+        }
+    }
+    return 0;
+}
+
 static int showMenu()
 {
     int choice;
@@ -135,6 +188,7 @@ static int showMenu()
     cout << "2. View advertisment" << endl;
     cout << "3. Delete advertisment" << endl;
     cout << "4. Print to file" << endl;
+    cout << "5. Print to Arduino" << endl;
     cout << "0. Quit program" << endl;
     cout << "Enter menu choice: ";
     cin >> choice;
@@ -152,6 +206,9 @@ static int showMenu()
         break;
     case 4:
         printToFile();
+        break;
+    case 5:
+        printToSerial();
         break;
     case 0:
         cout << "You have quitted the program" << endl;
