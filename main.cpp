@@ -158,7 +158,7 @@ static int printToSerial()
 
     for (int j = 0; j < numbersOfAds; j++)
     {
-        totalSec[j] = ((adSum[j] / totalSum) * 10); //Seconds to display all messages
+        totalSec[j] = ((adSum[j] / totalSum) * 60); //Seconds to display all messages
         cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
     }
 
@@ -169,7 +169,7 @@ static int printToSerial()
 
     while (count < 1)
     {
-        myfile.open("/dev/ttyACM0"); //Serial port
+        myfile.open("/dev/cu.usbmodem11301"); //Serial port
         sleep(3);
         for (int x = 0; x < numbersOfAds; x++)
         {

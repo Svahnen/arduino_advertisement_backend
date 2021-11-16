@@ -4,11 +4,12 @@
 #include <iostream>
 
 #define MAX_NUMBER_OF_ADCHARS 32
-#define MAX_NUMBER_OF_ADVERTISMENT 10
-#define MAX_ADVERTISMENT_COST 10000
+#define MAX_NUMBER_OF_ADVERTISMENT 5
+#define MAX_ADVERTISMENT_COST 5000
 #define MIN_ADVERTISMENT_COST 1000
 
-typedef struct {
+typedef struct
+{
     int adSum;
     std::string adText;
 } Advertisments;
