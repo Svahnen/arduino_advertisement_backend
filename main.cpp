@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "advertisment.hpp"
-#include <vector>
+#include "serial.hpp"
 
 using namespace std;
 
@@ -128,26 +128,39 @@ static int printToFile()
     return 0;
 }
 
-void writeToSerial(string serial, string ad)
+void writeToSerial(string ad, int i)
 {
-    ofstream arduino;
-    arduino << ad;
-    arduino.flush();
+    Serial *Arduino;
+    Arduino = getArduino();
+
+    Arduino->arduinos[i] << ad;
+    Arduino->arduinos->flush();
+
+    //ofstream arduino;
+    //arduino << ad;
+    //arduino.flush();
 }
 
-void openSerial(string serial)
+void openSerial(string serial, int i)
 {
-    ofstream arduino;
-    arduino.open(serial);
+    Serial *Arduino;
+    Arduino = getArduino();
+
+    Arduino->arduinos[i].open(serial);
+
+    //ofstream arduino;
+    //arduino.open(serial);
     sleep(3);
 }
 
-void closeSerial(string serial)
+void closeSerial(int i)
 {
-    ofstream arduino;
-    arduino.open(serial);
-    sleep(3);
-    arduino.close();
+    Serial *Arduino;
+    Arduino = getArduino();
+    
+    Arduino->arduinos[i].close();
+
+    //arduino.close();
 }
 
 /* 
@@ -225,19 +238,39 @@ static int printToSerial()
     }
     */
 
-    openSerial("/dev/cu.usbmodem11401");
+   int numbersOfConnections = getNumberOfConnections();
+   cout << "Number of connections: " << numbersOfConnections << endl;
+   string serialPort;
+
+   for (int i = 0; i < numbersOfConnections; i++)
+   {
+       serialPort = getSerialPort(i);
+       cout << "Serialport: " << serialPort << endl;
+       openSerial(serialPort, i);
+   }
 
     int count = 0;
     while (count < 1)
     {
         for (int x = 0; x < numbersOfAds; x++)
         {
-            //Here will be foor loop that does writeToSerial for all argv
-            writeToSerial("/dev/cu.usbmodem11401", ads[x]);
+            for (int i = 0; i < numbersOfConnections; i++)
+            {
+                writeToSerial(ads[x], i);
+                cout << "Number of times you write to Serial: " << i << endl;
+            }
+            //Here will be foor loop that does writeToSerial for all argv: DONE ABOVE!
+            //writeToSerial("/dev/cu.usbmodem11401", ads[x]);
             sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
         }
         count++;
     }
+    for (int i = 0; i < numbersOfConnections; i++)
+    {
+        cout << "You have closed " << i << " connections" << endl;
+        closeSerial(i);
+    }
+    
     //Here we going to close all the open files.
 
     return 0;
@@ -273,7 +306,7 @@ static int showMenu()
         printToSerial();
         break;
     case 0:
-        closeSerial("/dev/cu.usbmodem11401");
+        //closeSerial("/dev/cu.usbmodem11401");
         cout << "You have quitted the program" << endl;
         exit(EXIT_SUCCESS);
     default:
@@ -285,20 +318,30 @@ static int showMenu()
 
 int main(int argc, char **argv) //argc the amount of arguments + filename
 {
-    ofstream *arduino;
-    arduino = new ofstream[5];
+    /*
+    Serial Arduino;
+    Arduino = getArduino();
+
+    ofstream Arduino.arduinos;
+    Arduino.arduinos = new ofstream[5];
+
 
     arduino[0].open("/dev/cu.usbmodem11401");
     sleep(3);
     arduino[0] << "test";
     arduino[0].flush();
     arduino[0].close();
-
+    */
+   string* hej;
     cout << "Have " << argc - 1 << " arguments:" << endl;
     for (int i = 1; i < argc; ++i)
     {
+        hej[i] = argv[i];
+        cout << hej[i] << endl;
         cout << argv[i] << endl;
     }
+
+    SetSerialConnection(argc, argv);
 
     while (1)
     {
