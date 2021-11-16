@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "advertisment.hpp"
+#include <vector>
 
 using namespace std;
 
@@ -127,6 +128,47 @@ static int printToFile()
     return 0;
 }
 
+void writeToSerial(string serial, string ad)
+{
+    ofstream arduino;
+    arduino << ad;
+    arduino.flush();
+}
+
+void openSerial(string serial)
+{
+    ofstream arduino;
+    arduino.open(serial);
+    sleep(3);
+}
+
+void closeSerial(string serial)
+{
+    ofstream arduino;
+    arduino.open(serial);
+    sleep(3);
+    arduino.close();
+}
+
+/* 
+int writeToSerial(string serial, string ad, double sec)
+{
+    ofstream arduino;
+
+    arduino.open(serial);
+    if (!arduino.is_open())
+    {
+        sleep(2);
+    }
+
+    arduino << ad;
+    arduino.flush();
+    sleep(sec);
+    //arduino.close();
+
+    return 0;
+} */
+
 static int printToSerial()
 {
     string ads[10];
@@ -164,12 +206,13 @@ static int printToSerial()
 
     int key = 0;
 
+    /*
     ofstream myfile;
     int count = 0;
 
     while (count < 1)
     {
-        myfile.open("/dev/cu.usbmodem11301"); //Serial port
+        myfile.open("/dev/cu.usbmodem11401"); //Serial port
         sleep(3);
         for (int x = 0; x < numbersOfAds; x++)
         {
@@ -180,6 +223,22 @@ static int printToSerial()
         count++;
         myfile.close();
     }
+    */
+
+    openSerial("/dev/cu.usbmodem11401");
+
+    int count = 0;
+    while (count < 1)
+    {
+        for (int x = 0; x < numbersOfAds; x++)
+        {
+            //Here will be foor loop that does writeToSerial for all argv
+            writeToSerial("/dev/cu.usbmodem11401", ads[x]);
+            sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
+        }
+        count++;
+    }
+    //Here we going to close all the open files.
 
     return 0;
 }
@@ -214,17 +273,27 @@ static int showMenu()
         printToSerial();
         break;
     case 0:
+        closeSerial("/dev/cu.usbmodem11401");
         cout << "You have quitted the program" << endl;
         exit(EXIT_SUCCESS);
     default:
-        cout << "Please enter a correct choice!" << endl;
+        cout << "Please enter arduino correct choice!" << endl;
         break;
     }
     return 0;
 }
 
-int main(int argc, char **argv)
+int main(int argc, char **argv) //argc the amount of arguments + filename
 {
+    ofstream *arduino;
+    arduino = new ofstream[5];
+
+    arduino[0].open("/dev/cu.usbmodem11401");
+    sleep(3);
+    arduino[0] << "test";
+    arduino[0].flush();
+    arduino[0].close();
+
     cout << "Have " << argc - 1 << " arguments:" << endl;
     for (int i = 1; i < argc; ++i)
     {
