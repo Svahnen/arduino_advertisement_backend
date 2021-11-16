@@ -113,7 +113,6 @@ static int printToFile()
     myfile.open("example.txt");
     sleep(3);
 
-
     cout << "Press enter to exit the loop" << endl;
 
     while (1)
@@ -166,18 +165,22 @@ static int printToSerial()
     int key = 0;
 
     ofstream myfile;
-    myfile.open("/dev/cu.usbmodem11301"); //Serial port
-    sleep(3);
+    int count = 0;
 
-    while (1)
+    while (count < 1)
     {
+        myfile.open("/dev/ttyACM0"); //Serial port
+        sleep(3);
         for (int x = 0; x < numbersOfAds; x++)
         {
-            myfile << ads[x] << endl;
-            myfile.close();
+            myfile << ads[x];
+            myfile.flush();
             sleep(totalSec[x]);
         }
+        count++;
+        myfile.close();
     }
+
     return 0;
 }
 
