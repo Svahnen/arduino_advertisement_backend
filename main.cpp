@@ -80,7 +80,6 @@ static int printToFile()
     double adSum[10], totalSec[10];
     numbersOfAds = 0;
 
-    // Check if this work if you remove one ad and adds a new on another index.
     for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++)
     {
         ad = getAdtextByNumber(i);
@@ -109,33 +108,23 @@ static int printToFile()
     }
 
     int key = 0;
-    int numberOfPrints = 0;
 
     ofstream myfile;
     myfile.open("example.txt");
+    sleep(3);
+
 
     cout << "Press enter to exit the loop" << endl;
 
-    while (key != 10)
+    while (1)
     {
         for (int x = 0; x < numbersOfAds; x++)
         {
-            myfile << ads[x] << " sec: " << totalSec[x] << endl;
-            numberOfPrints++;
-            
-            //sleep(totalSec[x]);
-            sleep(1);
-
-            getc(stdin);
-            if (getchar())
-            {
-                cout << "keypress: " << key << endl;
-            }
+            myfile << ads[x] << endl;
+            myfile.close();
+            sleep(totalSec[x]);
         }
     }
-
-    myfile.close();
-    cout << "You have exit the print loop" << endl;
     return 0;
 }
 
