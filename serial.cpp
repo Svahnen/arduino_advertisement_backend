@@ -32,7 +32,6 @@ int SetSerialConnection(int argc, char **argv)
     return 0;
 }
 
-// Thease functions could have been inside the struct (getters and setters)
 int getNumberOfConnections()
 {
     return Arduino->numberOfConnections;
@@ -47,13 +46,6 @@ Serial *getArduino() // Returns a pointer to the Arduino struct
 {
     return Arduino;
 }
-
-// This should return a pointer to only the ofstream
-/* ofstream *getOfstream(int x)
-{
-    return &Arduino->arduinos[x];
-}
- */
 
 void deleteStruct()
 {

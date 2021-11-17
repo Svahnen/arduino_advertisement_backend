@@ -113,8 +113,6 @@ static int printToFile()
         cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
     }
 
-    int key = 0;
-
     ofstream myfile;
     myfile.open("example.txt");
     sleep(3);
@@ -189,11 +187,9 @@ static int printToSerial()
 
     for (int j = 0; j < numbersOfAds; j++)
     {
-        totalSec[j] = ((adSum[j] / totalSum) * 10); //Seconds to display all messages
+        totalSec[j] = ((adSum[j] / totalSum) * 60); //Seconds to display all messages
         cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
     }
-
-    int key = 0;
 
     int numbersOfConnections = getNumberOfConnections();
     cout << "Number of connections: " << numbersOfConnections << endl;
@@ -207,8 +203,6 @@ static int printToSerial()
     }
     sleep(3); // sleep so the arduinos have a chance to setup the serial port
 
-    int count = 0;
-    int wts = 0;
     while (1)
     {
         //Maybe we have to change these foor loops!
@@ -217,19 +211,14 @@ static int printToSerial()
             for (int i = 0; i < numbersOfConnections; i++)
             {
                 writeToSerial(ads[x], i);
-                wts++;
             }
-            cout << "Number of times you write to Serial: " << wts << endl;
             //Here will be foor loop that does writeToSerial for all argv: DONE ABOVE!
             sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
-
-            wts++;
         }
-        count++; // temporary test to stop the loop after x amount
     }
 
     cout << "Finished loop" << endl;
-    //Here we going to close all the open files/serial connections.
+    //Here we going to close all the open connections.
     for (int i = 0; i < numbersOfConnections; i++)
     {
         cout << "You have closed " << i + 1 << " connections" << endl;
@@ -269,7 +258,6 @@ static int showMenu()
         printToSerial();
         break;
     case 0:
-        //closeSerial("/dev/cu.usbmodem11401");
         cout << "You have quitted the program" << endl;
         exit(EXIT_SUCCESS);
     default:
@@ -281,21 +269,6 @@ static int showMenu()
 
 int main(int argc, char **argv) //argc the amount of arguments + filename
 {
-    /*
-    Serial Arduino;
-    Arduino = getArduino();
-
-    ofstream Arduino.arduinos;
-    Arduino.arduinos = new ofstream[5];
-
-
-    arduino[0].open("/dev/cu.usbmodem11401");
-    sleep(3);
-    arduino[0] << "test";
-    arduino[0].flush();
-    arduino[0].close();
-    */
-
     cout << "Have " << argc - 1 << " arguments:" << endl;
     for (int i = 1; i < argc; ++i)
     {
