@@ -308,6 +308,6 @@ int main(int argc, char **argv) //argc the amount of arguments + filename
     {
         showMenu();
     }
-
+    deleteStruct();
     return 0;
 }
