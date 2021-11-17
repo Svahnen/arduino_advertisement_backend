@@ -5,6 +5,11 @@
 #include "advertisment.hpp"
 #include "serial.hpp"
 
+#include <chrono>
+#include <thread>
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono;      // nanoseconds, system_clock, seconds
+
 using namespace std;
 
 static int addAd()
@@ -134,7 +139,7 @@ void writeToSerial(string ad, int i)
     Arduino = getArduino();
 
     Arduino->arduinos[i] << ad;
-    Arduino->arduinos->flush();
+    Arduino->arduinos[i].flush();
 
     //ofstream arduino;
     //arduino << ad;
@@ -255,21 +260,29 @@ static int printToSerial()
     while (count < 2)
     {
         //Maybe we have to change these for loops!
-        for (int x = 0; x < numbersOfAds; x++)
+        for (int x = 0; x < numbersOfConnections; x++)
         {
-            for (int i = 0; i < numbersOfConnections; i++)
+            /*  for (int i = 0; i < numbersOfAds; i++)
             {
                 writeToSerial(ads[x], i);
                 wts++;
             }
-            cout << "Number of times you write to Serial: " << wts << endl;
+            cout << "Number of times you write to Serial: " << wts << endl; */
             //Here will be foor loop that does writeToSerial for all argv: DONE ABOVE!
             //writeToSerial("/dev/cu.usbmodem11401", ads[x]);
-            sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
-        }
+            //sleep(2);
+            //sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
 
+            writeToSerial(ads[0], x);
+            wts++;
+        }
+        //sleep(5);
+        sleep_until(system_clock::now() + seconds(5));
         count++; // temporary test to stop the loop after x amount
     }
+
+    cout << "Finsihed loop" << endl;
+    sleep(5);
 
     //Here we going to close all the open files/serial connections.
     for (int i = 0; i < numbersOfConnections; i++)
