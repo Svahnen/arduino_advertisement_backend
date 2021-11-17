@@ -109,7 +109,7 @@ static int printToFile()
 
     for (int j = 0; j < numbersOfAds; j++)
     {
-        totalSec[j] = ((adSum[j] / totalSum) * 10); //Seconds to display all messages
+        totalSec[j] = ((adSum[j] / totalSum) * 60); //Seconds to display all messages
         cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
     }
 
