@@ -10,10 +10,10 @@ int SetSerialConnection(int argc, char **argv) {
 
     Arduino.numberOfConnections = argc -1;
     Arduino.arduinos = new ofstream[argc -1];
+    Arduino.serialPort = new string[argc -1];
 
     for (int i = 1; i < argc; i++) {
-        Arduino.serialPort[i] = argv[i];
-        cout << Arduino.serialPort[i] << endl;
+        Arduino.serialPort[i -1] = argv[i];
     }
     return 0;
 }

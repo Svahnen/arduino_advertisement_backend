@@ -213,7 +213,7 @@ static int printToSerial()
 
     for (int j = 0; j < numbersOfAds; j++)
     {
-        totalSec[j] = ((adSum[j] / totalSum) * 60); //Seconds to display all messages
+        totalSec[j] = ((adSum[j] / totalSum) * 10); //Seconds to display all messages
         cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
     }
 
@@ -250,24 +250,28 @@ static int printToSerial()
    }
 
     int count = 0;
+    int wts = 0;
     while (count < 1)
     {
+        //Maybe we have to change these for loops!
         for (int x = 0; x < numbersOfAds; x++)
         {
             for (int i = 0; i < numbersOfConnections; i++)
             {
                 writeToSerial(ads[x], i);
-                cout << "Number of times you write to Serial: " << i << endl;
+                wts++;
             }
+            cout << "Number of times you write to Serial: " << wts << endl;
             //Here will be foor loop that does writeToSerial for all argv: DONE ABOVE!
             //writeToSerial("/dev/cu.usbmodem11401", ads[x]);
             sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
         }
+        
         count++;
     }
     for (int i = 0; i < numbersOfConnections; i++)
     {
-        cout << "You have closed " << i << " connections" << endl;
+        cout << "You have closed " << i +1 << " connections" << endl;
         closeSerial(i);
     }
     
@@ -332,12 +336,10 @@ int main(int argc, char **argv) //argc the amount of arguments + filename
     arduino[0].flush();
     arduino[0].close();
     */
-   string* hej;
+
     cout << "Have " << argc - 1 << " arguments:" << endl;
     for (int i = 1; i < argc; ++i)
     {
-        hej[i] = argv[i];
-        cout << hej[i] << endl;
         cout << argv[i] << endl;
     }
 
