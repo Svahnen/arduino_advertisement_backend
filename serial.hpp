@@ -12,8 +12,6 @@ typedef struct
 int SetSerialConnection(int argc, char **argv);
 int getNumberOfConnections();
 std::string getSerialPort(int x);
-Serial* getArduino();
+Serial *getArduino();
 
 #endif /* ifndef SERIAL_HPP */
-
-

@@ -143,21 +143,21 @@ void writeToSerial(string ad, int i)
 
 void openSerial(string serial, int i)
 {
-    Serial *Arduino;
-    Arduino = getArduino();
+    Serial *Arduino;        //The * makes this only a pointer not an actual struct
+    Arduino = getArduino(); // connect the struct pointer to the struct inside serial.cpp
 
     Arduino->arduinos[i].open(serial);
 
     //ofstream arduino;
     //arduino.open(serial);
-    sleep(3);
+    //sleep(3);
 }
 
 void closeSerial(int i)
 {
     Serial *Arduino;
     Arduino = getArduino();
-    
+
     Arduino->arduinos[i].close();
 
     //arduino.close();
@@ -238,20 +238,21 @@ static int printToSerial()
     }
     */
 
-   int numbersOfConnections = getNumberOfConnections();
-   cout << "Number of connections: " << numbersOfConnections << endl;
-   string serialPort;
+    int numbersOfConnections = getNumberOfConnections();
+    cout << "Number of connections: " << numbersOfConnections << endl;
+    string serialPort;
 
-   for (int i = 0; i < numbersOfConnections; i++)
-   {
-       serialPort = getSerialPort(i);
-       cout << "Serialport: " << serialPort << endl;
-       openSerial(serialPort, i);
-   }
+    for (int i = 0; i < numbersOfConnections; i++)
+    {
+        serialPort = getSerialPort(i);
+        cout << "Serialport: " << serialPort << endl;
+        openSerial(serialPort, i);
+    }
+    sleep(3); // sleep so the arduinos have a chance to setup the serial port
 
     int count = 0;
     int wts = 0;
-    while (count < 1)
+    while (count < 2)
     {
         //Maybe we have to change these for loops!
         for (int x = 0; x < numbersOfAds; x++)
@@ -266,16 +267,16 @@ static int printToSerial()
             //writeToSerial("/dev/cu.usbmodem11401", ads[x]);
             sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
         }
-        
-        count++;
+
+        count++; // temporary test to stop the loop after x amount
     }
+
+    //Here we going to close all the open files/serial connections.
     for (int i = 0; i < numbersOfConnections; i++)
     {
-        cout << "You have closed " << i +1 << " connections" << endl;
+        cout << "You have closed " << i + 1 << " connections" << endl;
         closeSerial(i);
     }
-    
-    //Here we going to close all the open files.
 
     return 0;
 }
