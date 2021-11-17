@@ -140,10 +140,6 @@ void writeToSerial(string ad, int i)
 
     Arduino->arduinos[i] << ad;
     Arduino->arduinos[i].flush();
-
-    //ofstream arduino;
-    //arduino << ad;
-    //arduino.flush();
 }
 
 void openSerial(string serial, int i)
@@ -152,10 +148,6 @@ void openSerial(string serial, int i)
     Arduino = getArduino(); // connect the struct pointer to the struct inside serial.cpp
 
     Arduino->arduinos[i].open(serial);
-
-    //ofstream arduino;
-    //arduino.open(serial);
-    //sleep(3);
 }
 
 void closeSerial(int i)
@@ -164,28 +156,7 @@ void closeSerial(int i)
     Arduino = getArduino();
 
     Arduino->arduinos[i].close();
-
-    //arduino.close();
 }
-
-/* 
-int writeToSerial(string serial, string ad, double sec)
-{
-    ofstream arduino;
-
-    arduino.open(serial);
-    if (!arduino.is_open())
-    {
-        sleep(2);
-    }
-
-    arduino << ad;
-    arduino.flush();
-    sleep(sec);
-    //arduino.close();
-
-    return 0;
-} */
 
 static int printToSerial()
 {
@@ -224,25 +195,6 @@ static int printToSerial()
 
     int key = 0;
 
-    /*
-    ofstream myfile;
-    int count = 0;
-
-    while (count < 1)
-    {
-        myfile.open("/dev/cu.usbmodem11401"); //Serial port
-        sleep(3);
-        for (int x = 0; x < numbersOfAds; x++)
-        {
-            myfile << ads[x];
-            myfile.flush();
-            sleep(totalSec[x]);
-        }
-        count++;
-        myfile.close();
-    }
-    */
-
     int numbersOfConnections = getNumberOfConnections();
     cout << "Number of connections: " << numbersOfConnections << endl;
     string serialPort;
@@ -257,33 +209,26 @@ static int printToSerial()
 
     int count = 0;
     int wts = 0;
-    while (count < 2)
+    while (1)
     {
-        //Maybe we have to change these for loops!
-        for (int x = 0; x < numbersOfConnections; x++)
+        //Maybe we have to change these foor loops!
+        for (int x = 0; x < numbersOfAds; x++)
         {
-            /*  for (int i = 0; i < numbersOfAds; i++)
+            for (int i = 0; i < numbersOfConnections; i++)
             {
                 writeToSerial(ads[x], i);
                 wts++;
             }
-            cout << "Number of times you write to Serial: " << wts << endl; */
+            cout << "Number of times you write to Serial: " << wts << endl;
             //Here will be foor loop that does writeToSerial for all argv: DONE ABOVE!
-            //writeToSerial("/dev/cu.usbmodem11401", ads[x]);
-            //sleep(2);
-            //sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
+            sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
 
-            writeToSerial(ads[0], x);
             wts++;
         }
-        //sleep(5);
-        sleep_until(system_clock::now() + seconds(5));
         count++; // temporary test to stop the loop after x amount
     }
 
-    cout << "Finsihed loop" << endl;
-    sleep(5);
-
+    cout << "Finished loop" << endl;
     //Here we going to close all the open files/serial connections.
     for (int i = 0; i < numbersOfConnections; i++)
     {
