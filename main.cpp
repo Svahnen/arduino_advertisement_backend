@@ -5,11 +5,6 @@
 #include "advertisment.hpp"
 #include "serial.hpp"
 
-#include <chrono>
-#include <thread>
-using namespace std::this_thread; // sleep_for, sleep_until
-using namespace std::chrono;      // nanoseconds, system_clock, seconds
-
 using namespace std;
 
 static int addAd()
@@ -25,7 +20,7 @@ static int addAd()
     }
 
     cout << "You have " << MAX_NUMBER_OF_ADVERTISMENT - numbersOfArray << " free slots of advertisment to add" << endl;
-    cout << "Enter sum between " << MIN_ADVERTISMENT_COST << " - " << MAX_ADVERTISMENT_COST << " and max number of characters is " << MAX_NUMBER_OF_ADCHARS << endl;
+    cout << "Enter sum between " << MIN_ADVERTISMENT_COST << " - " << MAX_ADVERTISMENT_COST << " and a message with a maximum of " << MAX_NUMBER_OF_ADCHARS << " characters" << endl;
     cout << "Enter sum: ";
     cin >> sum;
     cout << "Enter text: ";
@@ -34,7 +29,7 @@ static int addAd()
 
     if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST || adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 0)
     {
-        cout << "Please enter correct input!" << endl;
+        cout << "Wrong entry, enter the correct amount!" << endl;
         return -1;
     }
 
@@ -46,7 +41,7 @@ static int addAd()
 
 static int viewAd()
 {
-    int numbersOfArray, i, j;
+    int numbersOfArray, i;
     string ad;
     numbersOfArray = getNumberOfAdvertisments();
     cout << endl;
@@ -261,7 +256,7 @@ static int showMenu()
         cout << "You have quitted the program" << endl;
         exit(EXIT_SUCCESS);
     default:
-        cout << "Please enter arduino correct choice!" << endl;
+        cout << "Please choose a correct menu alternative!" << endl;
         break;
     }
     return 0;

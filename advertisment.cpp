@@ -49,7 +49,7 @@ string getAdtextByNumber(int x)
 int getNumberOfAdvertisments()
 {
     int numberOfAdvertisments = 0;
-    for (int i = 0; i < sizeof(adArray) / sizeof(adArray[0]); i++)
+    for (unsigned long int i = 0; i < sizeof(adArray) / sizeof(adArray[0]); i++)
     {
         if (adArray[i].adSum != 0)
         {
