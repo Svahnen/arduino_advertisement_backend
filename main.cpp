@@ -4,8 +4,22 @@
 #include <unistd.h>
 #include "advertisment.hpp"
 #include "serial.hpp"
+#include <signal.h>
 
 using namespace std;
+
+int printing = 1;
+
+// Define the function to be called when ctrl-c (SIGINT) is sent to process
+void signal_callback_handler(int signum)
+{
+    cout << "Caught signal " << signum << endl;
+    if (signum == 2)
+    {
+        cout << "This is inside signal if statement " << endl;
+        printing = 0;
+    }
+}
 
 static int addAd()
 {
@@ -153,6 +167,7 @@ void closeSerial(int i)
 
 static int printToSerial()
 {
+    printing = 1;
     string ads[10];
     string ad;
     int numbersOfAds, i, totalSum;
@@ -198,7 +213,8 @@ static int printToSerial()
     }
     sleep(3); // sleep so the arduinos have a chance to setup the serial port
 
-    while (1)
+    // This loop should be interupted by ctrl-c
+    while (printing)
     {
         //Maybe we have to change these foor loops!
         for (int x = 0; x < numbersOfAds; x++)
@@ -225,6 +241,9 @@ static int printToSerial()
 
 static int showMenu()
 {
+    // Register signal and signal handler
+    signal(SIGINT, signal_callback_handler);
+
     int choice;
     cout << "1. Add advertisment" << endl;
     cout << "2. View advertisment" << endl;
@@ -264,6 +283,7 @@ static int showMenu()
 
 int main(int argc, char **argv) //argc the amount of arguments + filename
 {
+
     cout << "Have " << argc - 1 << " arguments:" << endl;
     for (int i = 1; i < argc; ++i)
     {

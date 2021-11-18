@@ -10,6 +10,8 @@ Kolla om vi måste köra en delete på alla "new" vi kör.
 - Rensa kod som inte används
 :Done
 
+- Fixa bugg när man skriver text i sum rutan.
+
 - Fånga ctrl c signal för att avsluta programmet
 
 - Shell skript
@@ -21,8 +23,6 @@ Kolla om vi måste köra en delete på alla "new" vi kör.
 - Ändra texter som skrivs ut om något skulle vara otydligt eller icke relevant
 
 - Kolla om det är några funktioner som är för stora som man kan dela upp (flytta ut i andra filer), dubbel kod?
-
-
 
 
 På felhanteringen angående "öppna connection" eller skriva till filen, den skulle man typ kunna lägga i en if-sats för om något skulle hända så returnera den inte true tex
