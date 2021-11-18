@@ -12,7 +12,9 @@ Kolla om vi måste köra en delete på alla "new" vi kör.
 
 - Fixa bugg när man skriver text i sum rutan.
 
-- Fånga ctrl c signal för att avsluta programmet
+- Fixa så ctrl-c avbryter loopen direkt
+
+- Fånga ctrl c signal för att avsluta loopen
 
 - Shell skript
 
