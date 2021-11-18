@@ -1,7 +1,7 @@
 # arduino_advertisement_backend
 
-###Improvements
-Kolla om vi måste köra en delete på alla "new" vi kör.
+### Improvements
+Kör en delete på alla "new" vi kör. :Done
 
 ### To do: 
 - Felhantering där det inte finns (input, argument(Felhantering om porten inte finns eller om man skickar in något konstigt) minnes allokering med "new" om vi inte skulle få något minne?(Kolla om null) osv
