@@ -81,6 +81,7 @@ static int removeAd()
     cin >> input;
     // Check that the input is correct
 
+    // TODO: Add error handeling in case user tries to delete and array that does not exist
     deleteAd(input);
     cout << "You have deleted an ad" << endl;
     cout << endl;
