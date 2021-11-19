@@ -13,6 +13,7 @@ int printing = 1;
 // Define the function to be called when ctrl-c (SIGINT) is sent to process
 void signal_callback_handler(int signum)
 {
+    //TODO: fix bug where ctrl-c is interrupted even in the main menu
     if (signum == 2)
     {
         cout << " Going to main menu once the current loop is over" << endl;
@@ -59,7 +60,7 @@ static int viewAd()
     string ad;
     numbersOfArray = getNumberOfAdvertisments();
     cout << endl;
-    cout << "Number of arrays: " << numbersOfArray << endl;
+    cout << "Number ads in array: " << numbersOfArray << endl;
 
     for (i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++)
     {
