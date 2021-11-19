@@ -8,12 +8,6 @@ Advertisments adArray[10];
 
 int setAd(int sum, string text)
 {
-    int len = sizeof(adArray) / sizeof(adArray[0]);
-
-    cout << endl;
-    cout << "Array is " << len << " numbers" << endl;
-    cout << "Array length is " << len << endl;
-    cout << endl;
 
     for (long unsigned int i = 0; i < sizeof(adArray) / sizeof(adArray[0]); i++)
     {
