@@ -203,6 +203,7 @@ static int showMenu()
     cout << "Enter menu choice: ";
     cin >> choice;
 
+    // TODO: Fix bug where entering text instead of a number closes the program
     switch (choice)
     {
     case 1:
