@@ -1,30 +1,39 @@
 # arduino_advertisement_backend
+This is the backend for displaying advertisements on displays driven by arduinos.
 
-### Improvements
-Kör en delete på alla "new" vi kör. :Done
-
-### To do: 
-- Felhantering där det inte finns (input, argument(Felhantering om porten inte finns eller om man skickar in något konstigt) minnes allokering med "new" om vi inte skulle få något minne?(Kolla om null) osv
+## Improvements
+Kör en delete på alla "new" vi kör
 :Done
 
 - Rensa kod som inte används
 :Done
 
-- Fixa bugg när man skriver text i sum rutan.
+- Fånga ctrl-c signal för att avsluta print loopen
+:Done
+
+- skapa compile och run Shell skripts
+:Done
+
+- Visa ett error meddelande och stäng av om användaren inte skickar in några argument vid start
+
+- Ändra namn och text i menyer till att återspegla ads istället för arrayer, så användaren kan ange tex delete ad nr 1, istället för array 0
+
+- Bryt ner programmet i mindre filer.
+
+- Kolla om vi inte skulle få något minne?(om null osv) vid allokering med "new"
 
 - Fixa så ctrl-c avbryter loopen direkt
 
-- Fånga ctrl c signal för att avsluta loopen
+- Fixa till variabel och funktions namn så att dom blir tydligare
 
-- Shell skript
+### Bugs
 
-- Fixa till namn så att det blir mer tydligt
+- Det går att komma in i delete menyn även när det inte finns några ads
 
-- Kommentarer
+- Oändlig loop när man skriver text i sum rutan
 
-- Ändra texter som skrivs ut om något skulle vara otydligt eller icke relevant
+- Ctrl-C fångas i alla menyer, inte bara i print loopen
 
-- Kolla om det är några funktioner som är för stora som man kan dela upp (flytta ut i andra filer), dubbel kod?
+- Programmet stängs av om man skriver in text i huvudmenyn
 
-
-På felhanteringen angående "öppna connection" eller skriva till filen, den skulle man typ kunna lägga i en if-sats för om något skulle hända så returnera den inte true tex
+- ctr-c stänger ibland av loopen direkt, trots att den INTE är i slutet av sin sleep timer, kanske ngt på OS/miljö nivå som avbryter själva sleep timern då ctrl-c normalt ska avsluta

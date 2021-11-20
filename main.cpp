@@ -197,9 +197,9 @@ static int showMenu()
 
     int choice;
     cout << "1. Add advertisment" << endl;
-    cout << "2. View advertisment" << endl;
+    cout << "2. View advertisements" << endl;
     cout << "3. Delete advertisment" << endl;
-    cout << "4. Print to Arduino" << endl;
+    cout << "4. Print to Arduino/s" << endl;
     cout << "0. Quit program" << endl;
     cout << "Enter menu choice: ";
     cin >> choice;
