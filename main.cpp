@@ -16,7 +16,7 @@ void signal_callback_handler(int signum)
     //TODO: fix bug where ctrl-c is interrupted even in the main menu
     if (signum == 2)
     {
-        cout << " Going to main menu once the current loop is over" << endl;
+        cout << " Going to main menu once the current ad have finished displaying" << endl;
         printing = 0;
     }
 }
@@ -162,7 +162,7 @@ static int printToSerial()
     }
     sleep(3); // sleep so the arduinos have a chance to setup the serial port
     cout << "Now printing messages" << endl;
-    cout << "Press ctrl-c to pause the print loop and go back to the menu after the current 60 second loop is over" << endl;
+    cout << "Press ctrl-c to pause the print loop and go back to the menu after the current ad have finished" << endl;
 
     // This loop should be interupted by ctrl-c
     while (printing)
