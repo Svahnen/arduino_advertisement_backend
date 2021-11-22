@@ -36,3 +36,7 @@ example.txt
 
 #vscode file
 .vscode
+
+#fake test usb files
+*test*
+*usb*
