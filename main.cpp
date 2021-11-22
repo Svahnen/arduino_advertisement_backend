@@ -183,7 +183,7 @@ static int printToSerial()
     //Here we going to close all the open connections.
     for (int i = 0; i < numbersOfConnections; i++)
     {
-        cout << "You have closed " << i + 1 << " connections" << endl;
+        cout << "You have closed connection " << i + 1 << endl;
         closeSerial(i);
     }
 
@@ -232,7 +232,13 @@ static int showMenu()
 int main(int argc, char **argv) //argc the amount of arguments + filename, argv the arguments
 {
 
-    cout << "Have " << argc - 1 << " arguments:" << endl;
+    if (argc == 1)
+    {
+        cout << "Too few arguments, run program with: " << argv[0] << " serialports seperated with space" << endl;
+        return -1;
+    }
+
+    cout << "Have " << argc - 1 << " argument/s:" << endl;
     for (int i = 1; i < argc; ++i)
     {
         cout << argv[i] << endl;
