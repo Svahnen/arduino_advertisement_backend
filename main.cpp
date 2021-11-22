@@ -14,7 +14,6 @@ int printing = 0;
 // Define the function to be called when ctrl-c (SIGINT) is sent to process
 void signal_callback_handler(int signum)
 {
-    //TODO: fix bug where ctrl-c is interrupted even in the main menu
     if (signum == 2)
     {
         if (printing)
@@ -98,15 +97,40 @@ static int viewAd()
 
 static int removeAd()
 {
+    if (getNumberOfAdvertisments() == 0)
+    {
+        cout << endl
+             << "There are no ads to delete" << endl
+             << endl;
+        return 0;
+    }
+
     int input;
     viewAd();
-    cout << "Enter which ad you want to remove by entering the array index number: ";
-    cin >> input;
-    // Check that the input is correct
 
-    // TODO: Add error handeling in case user tries to delete and array that does not exist
-    deleteAd(input);
-    cout << "You have deleted an ad" << endl;
+    cout << "Enter which ad you want to remove by entering the array index number: ";
+
+    while (!(cin >> input))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "You need to enter a number: ";
+    }
+
+    string ad;
+    for (int i = 0; i < MAX_NUMBER_OF_ADVERTISMENT; i++)
+    {
+        ad = getAdtextByNumber(i);
+        if (ad != "" && input == i)
+        {
+            deleteAd(input);
+            cout << "You have deleted an ad" << endl;
+            cout << endl;
+            return 0;
+        }
+    }
+
+    cout << "There was no ad on that array index" << endl;
     cout << endl;
     return 0;
 }
