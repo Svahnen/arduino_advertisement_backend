@@ -147,7 +147,7 @@ static int printToSerial()
     for (int j = 0; j < numbersOfAds; j++)
     {
         totalSec[j] = ((adSum[j] / totalSum) * 60); //Seconds to display all messages
-        cout << "Total sec for ad " << j << " is: " << totalSec[j] << endl;
+        cout << "Total seconds to display ad " << j << " is: " << totalSec[j] << endl;
     }
 
     int numbersOfConnections = getNumberOfConnections();
