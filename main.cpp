@@ -56,7 +56,6 @@ static int addAd()
     cin.ignore();
     getline(cin, adText, '\n');
 
-    // TODO: Better error handeling here so we dont get stuck in a forever loop if entering a string instead of numbers at the sum input
     if (adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 1)
     {
         cout << "Error: enter a message between 1 and " << MAX_NUMBER_OF_ADCHARS << " characters" << endl;
@@ -210,7 +209,7 @@ static int showMenu()
     // Register signal and signal handler
     signal(SIGINT, signal_callback_handler);
 
-    int choice;
+    char choice;
     cout << "1. Add advertisment" << endl;
     cout << "2. View advertisements" << endl;
     cout << "3. Delete advertisment" << endl;
@@ -219,8 +218,18 @@ static int showMenu()
     cout << "Enter menu choice: ";
     cin >> choice;
 
-    // TODO: Fix bug where entering text instead of a number closes the program
-    switch (choice)
+    // See if the user entered a number
+    try
+    {
+        stoi(&choice);
+    }
+    catch (const exception &e)
+    {
+        cerr << "You need to enter a number" << endl;
+        return -1;
+    }
+
+    switch (stoi(&choice))
     {
     case 1:
         addAd();
