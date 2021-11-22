@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int printing = 1;
+int printing = 0;
 
 // Define the function to be called when ctrl-c (SIGINT) is sent to process
 void signal_callback_handler(int signum)
@@ -17,9 +17,16 @@ void signal_callback_handler(int signum)
     //TODO: fix bug where ctrl-c is interrupted even in the main menu
     if (signum == 2)
     {
-        cout << endl
-             << "Going to main menu once the current ads have finished displaying" << endl;
-        printing = 0;
+        if (printing)
+        {
+            cout << endl
+                 << "Going to main menu" << endl;
+            printing = 0;
+        }
+        else
+        {
+            exit(EXIT_SUCCESS);
+        }
     }
 }
 
@@ -131,7 +138,6 @@ void closeSerial(int i)
 
 static int printToSerial()
 {
-    printing = 1;
     string ads[10];
     string ad;
     int numbersOfAds, i, totalSum;
@@ -179,18 +185,24 @@ static int printToSerial()
     cout << "Now printing messages" << endl;
     cout << "Press ctrl-c to pause the print loop and go back to the menu" << endl;
 
+    printing = 1;
     // This loop should be interupted by ctrl-c
     while (printing)
     {
-        //Maybe we have to change these foor loops!
         for (int x = 0; x < numbersOfAds; x++)
         {
             for (int i = 0; i < numbersOfConnections; i++)
             {
-                writeToSerial(ads[x], i);
+                if (printing)
+                {
+                    writeToSerial(ads[x], i);
+                }
             }
             //Here will be foor loop that does writeToSerial for all argv: DONE ABOVE!
-            sleep(totalSec[x]); // sleep should come after for loop with writeToSerial
+            if (printing) // dont sleep if ctrl-c have been pressed
+            {
+                sleep(totalSec[x]); // The current sleep command is interrupted bu ctrl-c
+            }
         }
     }
 
@@ -201,15 +213,12 @@ static int printToSerial()
         cout << "You have closed connection " << i + 1 << endl;
         closeSerial(i);
     }
-
+    printing = 0;
     return 0;
 }
 
 static int showMenu()
 {
-    // Register signal and signal handler
-    signal(SIGINT, signal_callback_handler);
-
     char choice;
     cout << "1. Add advertisment" << endl;
     cout << "2. View advertisements" << endl;
@@ -256,6 +265,8 @@ static int showMenu()
 
 int main(int argc, char **argv) //argc the amount of arguments + filename, argv the arguments
 {
+    // Register signal and signal handler
+    signal(SIGINT, signal_callback_handler);
 
     if (argc == 1)
     {

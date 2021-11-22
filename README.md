@@ -32,8 +32,8 @@ Kör en delete på alla "new" vi kör
 
 - Oändlig loop när man skriver text i sum rutan
 
-- Ctrl-C fångas i alla menyer, inte bara i print loopen
+- Ctrl-C fångas i alla menyer, inte bara i print loopen: done
 
 - Programmet stängs av om man skriver in text i huvudmenyn
 
-- ctr-c stänger ibland av loopen direkt, trots att den INTE är i slutet av sin sleep timer, kanske ngt på OS/miljö nivå som avbryter själva sleep timern då ctrl-c normalt ska avsluta
+- ctr-c stänger ibland av loopen direkt, trots att den INTE är i slutet av sin sleep timer, Ctrl-C avbryter nuvarande sleep, så om det finns flera sleep kvar i loopen får man ändå vänta
