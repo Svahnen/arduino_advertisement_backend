@@ -5,6 +5,7 @@
 #include "advertisment.hpp"
 #include "serial.hpp"
 #include <signal.h>
+#include <limits>
 
 using namespace std;
 
@@ -36,15 +37,29 @@ static int addAd()
     cout << "You have " << MAX_NUMBER_OF_ADVERTISMENT - numbersOfArray << " free slots of advertisment to add" << endl;
     cout << "Enter sum between " << MIN_ADVERTISMENT_COST << " - " << MAX_ADVERTISMENT_COST << " and a message with a maximum of " << MAX_NUMBER_OF_ADCHARS << " characters" << endl;
     cout << "Enter sum: ";
-    cin >> sum;
+
+    while (!(cin >> sum))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "The sum needs to be a number" << endl;
+        cout << "Enter sum: ";
+    }
+
+    if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST)
+    {
+        cout << "You need to enter a number between " << MIN_ADVERTISMENT_COST << " and " << MAX_ADVERTISMENT_COST << endl;
+        return -1;
+    }
+
     cout << "Enter text: ";
     cin.ignore();
     getline(cin, adText, '\n');
 
     // TODO: Better error handeling here so we dont get stuck in a forever loop if entering a string instead of numbers at the sum input
-    if (sum > MAX_ADVERTISMENT_COST || sum < MIN_ADVERTISMENT_COST || adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 0)
+    if (adText.length() > MAX_NUMBER_OF_ADCHARS || adText.length() < 1)
     {
-        cout << "Wrong entry!" << endl;
+        cout << "Error: enter a message between 1 and " << MAX_NUMBER_OF_ADCHARS << " characters" << endl;
         return -1;
     }
 
