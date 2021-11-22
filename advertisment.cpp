@@ -4,7 +4,7 @@
 using namespace std;
 
 Advertisments ad;
-Advertisments adArray[10];
+Advertisments adArray[MAX_NUMBER_OF_ADVERTISMENT];
 
 int setAd(int sum, string text)
 {
