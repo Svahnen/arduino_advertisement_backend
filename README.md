@@ -14,7 +14,7 @@ Kör en delete på alla "new" vi kör
 - skapa compile och run Shell skripts
 :Done
 
-- Visa ett error meddelande och stäng av om användaren inte skickar in några argument vid start
+- Visa ett error meddelande och stäng av om användaren inte skickar in några argument vid start: Done
 
 - Ändra namn och text i menyer till att återspegla ads istället för arrayer, så användaren kan ange tex delete ad nr 1, istället för array 0
 
@@ -22,18 +22,18 @@ Kör en delete på alla "new" vi kör
 
 - Kolla om vi inte skulle få något minne?(om null osv) vid allokering med "new"
 
-- Fixa så ctrl-c avbryter loopen direkt
+- Fixa så ctrl-c avbryter loopen direkt: Done
 
 - Fixa till variabel och funktions namn så att dom blir tydligare
 
 ### Bugs
 
-- Det går att komma in i delete menyn även när det inte finns några ads
+- Det går att komma in i delete menyn även när det inte finns några ads: Done
 
-- Oändlig loop när man skriver text i sum rutan
+- Oändlig loop när man skriver text i sum rutan: Done
 
-- Ctrl-C fångas i alla menyer, inte bara i print loopen: done
+- Ctrl-C fångas i alla menyer, inte bara i print loopen: Done
 
-- Programmet stängs av om man skriver in text i huvudmenyn
+- Programmet stängs av om man skriver in text i huvudmenyn: Done
 
-- ctr-c stänger ibland av loopen direkt, trots att den INTE är i slutet av sin sleep timer, Ctrl-C avbryter nuvarande sleep, så om det finns flera sleep kvar i loopen får man ändå vänta
+- ctr-c stänger ibland av loopen direkt, trots att den INTE är i slutet av sin sleep timer, Ctrl-C avbryter nuvarande sleep, så om det finns flera sleep kvar i loopen får man ändå vänta: Done
