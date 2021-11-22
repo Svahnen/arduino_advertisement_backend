@@ -229,7 +229,7 @@ static int showMenu()
     return 0;
 }
 
-int main(int argc, char **argv) //argc the amount of arguments + filename
+int main(int argc, char **argv) //argc the amount of arguments + filename, argv the arguments
 {
 
     cout << "Have " << argc - 1 << " arguments:" << endl;
