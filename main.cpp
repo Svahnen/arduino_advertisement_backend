@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <stdio.h>
 #include <unistd.h>
 #include "advertisment.hpp"
 #include "serial.hpp"
