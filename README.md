@@ -2,7 +2,7 @@
 This is the backend for displaying advertisements on displays driven by arduinos.
 
 ## Improvements
-Kör en delete på alla "new" vi kör
+- Kör en delete på alla "new" vi kör
 :Done
 
 - Rensa kod som inte används

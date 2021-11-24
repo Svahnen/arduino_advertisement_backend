@@ -1,1 +1,1 @@
-g++ *.cpp -Wall
+g++-11 *.cpp -Wall
